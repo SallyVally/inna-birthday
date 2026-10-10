@@ -66,7 +66,7 @@ document.querySelector('#start').addEventListener('click', () => {
   if (startButton.disabled) return;
   startButton.disabled = true;
   document.querySelector('.gift-envelope').classList.add('opening');
-  chime([523.25, 659.25, 783.99]);
+
   startTimer = setTimeout(() => { setScene(1); startButton.disabled = false; }, motionQuery.matches ? 0 : 1100);
 });
 next.addEventListener('click', () => setScene(current + 1));
@@ -105,7 +105,7 @@ bloomButtons.forEach((button, index) => button.addEventListener('click', () => {
   const rect = button.getBoundingClientRect();
   const shell = experience.getBoundingClientRect();
   burst(20, (rect.left + rect.width/2-shell.left)/shell.width, (rect.top+rect.height/2-shell.top)/shell.height);
-  chime([[523.25,659.25],[587.33,739.99],[659.25,783.99]][index]);
+
   if (bloomed.size === 3) {
     document.querySelector('.interactive-bouquet').classList.add('all-bloomed');
     document.querySelector('#flower-hint').textContent = 'Этот букет — для тебя ♡';
@@ -121,7 +121,7 @@ document.querySelector('#blow').addEventListener('click', () => {
   document.querySelector('#blow').textContent = 'Пусть сбудется ♡';
   document.querySelector('#candle-status').textContent = 'Твоё желание отправляется к звёздам…';
   burst(45, .5, .5);
-  chime([523.25,659.25,783.99,1046.5]);
+
   blowTimer = setTimeout(() => setScene(5), motionQuery.matches ? 800 : 2000);
 });
 
@@ -132,7 +132,7 @@ document.querySelector('#hug').addEventListener('click', () => {
   void heart.offsetWidth;
   heart.classList.add('is-hugging');
   burst(65, .5, .5, true);
-  chime([392,523.25,659.25]);
+
 });
 document.querySelector('#replay').addEventListener('click', () => {
   if (transitioning) return;
@@ -155,61 +155,6 @@ document.querySelector('#replay').addEventListener('click', () => {
   document.querySelector('.gift-envelope').classList.remove('opening');
   particles.length = 0;
   setScene(0);
-});
-
-// A small original bell arrangement, played only after the music button is tapped.
-let audioContext;
-let musicOn = false;
-let musicTimer;
-let musicBeat = 0;
-let toastTimer;
-const musicButton = document.querySelector('#sound-toggle');
-const chords = [[261.63,329.63,392],[220,261.63,329.63],[174.61,220,261.63],[196,246.94,293.66]];
-function note(frequency, when, duration=2.4, volume=.024) {
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-  oscillator.type = 'sine';
-  oscillator.frequency.value = frequency;
-  gain.gain.setValueAtTime(0,when);
-  gain.gain.linearRampToValueAtTime(volume,when+.025);
-  gain.gain.exponentialRampToValueAtTime(.0001,when+duration);
-  oscillator.connect(gain);gain.connect(audioContext.destination);
-  oscillator.start(when);oscillator.stop(when+duration+.05);
-}
-function musicTick() {
-  if (!musicOn || audioContext.state !== 'running') return;
-  const chord = chords[Math.floor(musicBeat/4)%chords.length];
-  const now = audioContext.currentTime;
-  note(chord[musicBeat%3]*2,now,2.8,.018);
-  if (musicBeat%4 === 0) note(chord[0]/2,now,3.5,.014);
-  musicBeat++;
-}
-function chime(frequencies) {
-  if (!musicOn || !audioContext || audioContext.state !== 'running') return;
-  frequencies.forEach((frequency,i)=>note(frequency,audioContext.currentTime+i*.1,1.5,.016));
-}
-function toast(message) {
-  clearTimeout(toastTimer);
-  const element = document.querySelector('#toast');
-  element.textContent = message;element.hidden = false;
-  toastTimer = setTimeout(()=>{element.hidden=true;},3000);
-}
-musicButton.addEventListener('click', async () => {
-  try {
-    const Audio = window.AudioContext || window.webkitAudioContext;
-    if (!Audio) throw new Error('No audio support');
-    audioContext ??= new Audio();
-    musicOn = !musicOn;
-    clearInterval(musicTimer);
-    musicButton.setAttribute('aria-pressed',String(musicOn));
-    musicButton.setAttribute('aria-label',musicOn?'Выключить музыку':'Включить музыку');
-    if (musicOn) {await audioContext.resume();musicTick();musicTimer=setInterval(musicTick,740);}
-    else await audioContext.suspend();
-  } catch {
-    musicOn = false;clearInterval(musicTimer);
-    musicButton.setAttribute('aria-pressed','false');musicButton.setAttribute('aria-label','Включить музыку');
-    toast('В этом браузере музыка недоступна. Открытка работает без звука ♡');
-  }
 });
 
 // Transform-only UI animation plus one bounded canvas for floating petals and bursts.
@@ -262,11 +207,11 @@ new ResizeObserver(sizeCanvas).observe(experience);
 sizeCanvas();
 if(ctx)frame=requestAnimationFrame(draw);
 document.addEventListener('visibilitychange',()=>{
-  if(document.hidden){cancelAnimationFrame(frame);frame=0;audioContext?.suspend();}
-  else {lastTime=0;if(ctx&&!frame)frame=requestAnimationFrame(draw);if(musicOn)audioContext?.resume().catch(()=>{});}
+  if(document.hidden){cancelAnimationFrame(frame);frame=0;}
+  else {lastTime=0;if(ctx&&!frame)frame=requestAnimationFrame(draw);}
 });
 window.addEventListener('pagehide',()=>{
-  clearInterval(musicTimer);cancelAnimationFrame(frame);frame=0;
+  cancelAnimationFrame(frame);frame=0;
   clearTimeout(transitionTimer);clearTimeout(blowTimer);clearTimeout(startTimer);
   scenes.forEach((scene,index)=>{
     scene.hidden=index!==current;scene.inert=index!==current;
@@ -280,5 +225,5 @@ window.addEventListener('pagehide',()=>{
 window.addEventListener('pageshow',event=>{
   if(!event.persisted)return;
   lastTime=0;if(ctx&&!frame)frame=requestAnimationFrame(draw);
-  if(musicOn){audioContext?.resume().catch(()=>{});clearInterval(musicTimer);musicTimer=setInterval(musicTick,740);}
+
 });
