@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8ede7">
+  <meta name="description" content="Бабуля Инна, с днём рождения! Маленькая история о большой любви. От Егора.">
+  <title>Инна, это всё для тебя ♡</title>
+  <link rel="icon" href="assets/heart.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <svg class="symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="heart" viewBox="0 0 24 24"><path d="M20.4 4.8a5.3 5.3 0 0 0-7.5 0l-.9.9-.9-.9a5.3 5.3 0 0 0-7.5 7.5L12 21l8.4-8.7a5.3 5.3 0 0 0 0-7.5Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4Zm12-1q5 4 0 8m3-11q8 7 0 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="star" viewBox="0 0 40 40"><path d="m20 1 4 15 15 4-15 4-4 15-4-15-15-4 15-4Z" fill="currentColor"/></symbol>
+    <symbol id="flower" viewBox="0 0 120 120"><g fill="currentColor"><ellipse cx="60" cy="30" rx="17" ry="27"/><ellipse cx="60" cy="90" rx="17" ry="27"/><ellipse cx="30" cy="60" rx="27" ry="17"/><ellipse cx="90" cy="60" rx="27" ry="17"/><ellipse cx="39" cy="39" rx="17" ry="27" transform="rotate(-45 39 39)"/><ellipse cx="81" cy="81" rx="17" ry="27" transform="rotate(-45 81 81)"/><ellipse cx="81" cy="39" rx="17" ry="27" transform="rotate(45 81 39)"/><ellipse cx="39" cy="81" rx="17" ry="27" transform="rotate(45 39 81)"/></g><circle cx="60" cy="60" r="14" fill="#f1d493"/><circle cx="56" cy="56" r="3" fill="#fff7e4"/></symbol>
+  </svg>
+  <div class="outside-glow" aria-hidden="true"></div>
+  <div class="experience" id="experience" data-scene="0">
+    <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="grain" aria-hidden="true"></div>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <header class="story-header">
+      <span class="dedication">Для Инны <span>♡</span></span>
+      <button class="sound-button" id="sound-toggle" aria-label="Включить музыку" aria-pressed="false"><svg><use href="#sound"/></svg><span class="sound-slash"></span></button>
+    </header>
+    <nav class="story-progress" aria-label="Сцены открытки" hidden>
+      <button data-go="1" aria-label="Открыть поздравление с фотографией"><span></span></button>
+      <button data-go="2" aria-label="Открыть письмо"><span></span></button>
+      <button data-go="3" aria-label="Открыть букет пожеланий"><span></span></button>
+      <button data-go="4" aria-label="Открыть свечу"><span></span></button>
+      <button data-go="5" aria-label="Открыть финал"><span></span></button>
+    </nav>
+    <main class="scenes">
+      <section class="scene scene-cover is-active" data-index="0" aria-labelledby="cover-title">
+        <div class="scene-inner cover-inner">
+          <span class="overline cover-overline">11 октября · особенный день</span>
+          <h1 id="cover-title">Бабуля,<br>это всё<br><em>для тебя.</em></h1>
+          <div class="gift-envelope" aria-hidden="true"><div class="envelope-letter"><svg><use href="#heart"/></svg></div><div class="envelope-back"></div><div class="envelope-flap"></div><div class="envelope-front"></div><div class="seal"><svg><use href="#heart"/></svg></div><span class="orbit-star star-one">✧</span><span class="orbit-star star-two">✦</span></div>
+          <p class="cover-subtitle">Маленькая история<br>о большой любви</p>
+          <button class="pill start-button" id="start">Открыть мой подарок <svg><use href="#arrow"/></svg></button>
+          <span class="handwritten cover-signature">С любовью, твой Егор</span>
+        </div>
+      </section>
+      <section class="scene scene-photo" data-index="1" aria-labelledby="photo-title" hidden inert>
+        <div class="scene-inner photo-inner">
+          <span class="overline stagger" style="--delay:0">Сегодня всё для тебя</span>
+          <h2 class="stagger" style="--delay:1" id="photo-title">С днём рождения,<br><em>бабуля Инна!</em></h2>
+          <div class="photo-stage stagger" style="--delay:2">
+            <div class="flower-halo" aria-hidden="true"><svg><use href="#flower"/></svg></div>
+            <figure class="polaroid"><img src="assets/babulya.png" alt="Бабуля Инна улыбается" width="640" height="640" fetchpriority="high"><figcaption class="handwritten">Самая любимая ♡</figcaption></figure>
+            <svg class="photo-sparkle sparkle-left" aria-hidden="true"><use href="#star"/></svg><svg class="photo-sparkle sparkle-right" aria-hidden="true"><use href="#star"/></svg>
+          </div>
+          <p class="photo-caption stagger" style="--delay:3">Как хорошо, что ты есть.<br>И как много тепла в твоей улыбке.</p>
+        </div>
+      </section>
+      <section class="scene scene-letter" data-index="2" aria-labelledby="letter-title" hidden inert>
+        <div class="scene-inner letter-inner">
+          <span class="overline stagger" style="--delay:0">То, что хочется сказать</span>
+          <h2 class="stagger" style="--delay:1" id="letter-title">Родная моя<br><em>бабуля.</em></h2>
+          <article class="letter-paper stagger" style="--delay:2" tabindex="0" aria-label="Письмо от Егора">
+            <span class="paper-heart" aria-hidden="true">♡</span>
+            <p class="letter-line">Я хочу, чтобы сегодня ты почувствовала, <strong>как сильно я тебя люблю.</strong></p>
+            <p class="letter-line">Спасибо за твою заботу, доброту и то особенное тепло, которое ты даришь.</p>
+            <p class="letter-line">Пусть здоровье будет крепким, дни — радостными, а рядом всегда будут любимые люди.</p>
+            <p class="letter-line">Мечтай, радуй себя и чаще улыбайся.<br><strong>Ты очень-очень любима!</strong></p>
+            <span class="handwritten letter-signature">Крепко обнимаю,<br>твой Егор</span>
+          </article>
+        </div>
+      </section>
+      <section class="scene scene-flowers" data-index="3" aria-labelledby="flowers-title" hidden inert>
+        <div class="scene-inner flowers-inner">
+          <span class="overline stagger" style="--delay:0">Три цветка · три пожелания</span>
+          <h2 class="stagger" style="--delay:1" id="flowers-title">Пусть для тебя<br><em>всё расцветает.</em></h2>
+          <p class="small-hint stagger" style="--delay:2" id="flower-hint">Коснись каждого цветка</p>
+          <div class="interactive-bouquet stagger" style="--delay:3">
+            <svg class="flower-stems" viewBox="0 0 340 300" aria-hidden="true"><g fill="none" stroke="#71856d" stroke-width="4" stroke-linecap="round"><path d="M170 279Q130 179 66 83"/><path d="M170 279V45"/><path d="M170 279Q218 184 277 94"/></g><g fill="#92a48a"><path d="M139 207Q76 160 88 198Q103 216 152 233Z"/><path d="M191 207Q251 156 239 195Q218 220 180 233Z"/><path d="M170 164Q219 110 206 146Q195 167 170 182Z"/><path d="M169 142Q131 94 132 123Q141 145 169 159Z"/></g><path d="M146 255q-45-30-43-2t44 4q49-32 46-2t-43 3m-3 1-21 38m23-36 23 36" fill="none" stroke="#c48994" stroke-width="9" stroke-linecap="round"/></svg>
+            <button class="bloom-button bloom-one" data-bloom="0" aria-label="Распустить цветок здоровья" aria-pressed="false"><span class="flower-bud"></span><svg class="flower-open"><use href="#flower"/></svg><span class="bloom-name">Здоровье</span></button>
+            <button class="bloom-button bloom-two" data-bloom="1" aria-label="Распустить цветок радости" aria-pressed="false"><span class="flower-bud"></span><svg class="flower-open"><use href="#flower"/></svg><span class="bloom-name">Радость</span></button>
+            <button class="bloom-button bloom-three" data-bloom="2" aria-label="Распустить цветок любви" aria-pressed="false"><span class="flower-bud"></span><svg class="flower-open"><use href="#flower"/></svg><span class="bloom-name">Любовь</span></button>
+          </div>
+          <div class="flower-wish" aria-live="polite" aria-atomic="true"><p id="flower-wish">В этом букете — всё, чего я желаю тебе.</p><span id="bloom-count">0 из 3 цветков</span></div>
+        </div>
+      </section>
+      <section class="scene scene-candle" data-index="4" aria-labelledby="candle-title" hidden inert>
+        <div class="scene-inner candle-inner">
+          <span class="overline stagger" style="--delay:0">Сейчас случится маленькое чудо</span>
+          <h2 class="stagger" style="--delay:1" id="candle-title">Загадай<br><em>желание.</em></h2>
+          <p class="candle-copy stagger" style="--delay:2">Самое заветное.<br>Пусть оно обязательно сбудется.</p>
+          <div class="cake-stage stagger" style="--delay:3" aria-hidden="true"><div class="cake-glow"></div><div class="cake"><div class="cake-candle"><div class="flame"><span></span></div><div class="smoke"></div></div><div class="icing"></div><div class="cake-body"></div><div class="cake-rim"></div><div class="cake-plate"></div><span class="cake-cherry cherry-one"></span><span class="cake-cherry cherry-two"></span><span class="cake-cherry cherry-three"></span></div><span class="cake-star cake-star-one">✧</span><span class="cake-star cake-star-two">✦</span></div>
+          <button class="pill blow-button stagger" style="--delay:4" id="blow">Задуть свечу <span aria-hidden="true">✧</span></button>
+          <span class="small-hint stagger" style="--delay:5" id="candle-status" role="status">И пусть всё хорошее сбудется</span>
+        </div>
+      </section>
+      <section class="scene scene-finale" data-index="5" aria-labelledby="finale-title" hidden inert>
+        <div class="scene-inner finale-inner">
+          <div class="finale-burst" aria-hidden="true"></div>
+          <span class="overline stagger" style="--delay:0">Самое главное — всегда</span>
+          <div class="finale-photo stagger" style="--delay:1"><img src="assets/babulya.png" alt="Улыбка бабули Инны" width="640" height="640"><span aria-hidden="true">♡</span></div>
+          <h2 class="stagger" style="--delay:2" id="finale-title">Люблю тебя,<br><em>бабуля!</em></h2>
+          <p class="finale-copy stagger" style="--delay:3">Какое счастье,<br>что у меня есть ты.</p>
+          <span class="handwritten finale-signature stagger" style="--delay:4">Твой Егор ♡</span>
+          <button class="pill hug-button stagger" style="--delay:5" id="hug">Обнимаю тебя! <svg><use href="#heart"/></svg></button>
+          <button class="replay stagger" style="--delay:6" id="replay">Посмотреть ещё раз ↺</button>
+          <p class="hug-response" id="hug-response" role="status" hidden>И я тебя крепко-крепко обнимаю! ♡</p>
+        </div>
+      </section>
+    </main>
+    <footer class="story-controls" hidden>
+      <button class="back-button" id="back" aria-label="Предыдущая сцена">←</button>
+      <span class="scene-number"><b id="scene-number">01</b><span>/ 05</span></span>
+      <button class="next-button" id="next">Дальше <svg><use href="#arrow"/></svg></button>
+    </footer>
+    <span class="toast" id="toast" role="status" hidden></span>
+    <div class="heart-hug" id="heart-hug" aria-hidden="true">♥</div>
+  </div>
+  <noscript><div class="no-script">Бабуля Инна, с днём рождения! Люблю тебя. Твой Егор ♡<br>Чтобы открыть анимированную открытку, включи JavaScript в браузере.</div></noscript>
+</body>
+</html>
